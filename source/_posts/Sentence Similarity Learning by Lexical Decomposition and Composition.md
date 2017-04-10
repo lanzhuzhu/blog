@@ -1,4 +1,17 @@
+---
+title: Sentence Similarity Learning by Lexical Decomposition and Composition
+date: 2017-04-10
+tags:
+  - QA
+  - 语义匹配
+categories:
+  - 自然语言处理
+---
+
+
+
 ## Sentence Similarity Learning by Lexical Decomposition and Composition
+
 - ZhiguoWang and Haitao Mi and Abraham Ittycheriah
 - IBM T.J. Watson Research Center
 - Yorktown Heights, NY, USA
@@ -23,5 +36,5 @@ sentence selection实现了最佳成绩。
 
 难点：句子的分解，计算每个句子的每个词和另一个句子对应的相关度公式5。然后根据**匹配的相关度**得到两个矩阵表示，自己这个句子的每个词，在另一个句子上最相关的语义表达，公式6，三种方法。公式7-9也记录了三种利用公式6，将原来输入的句子分解成相似和不相似的两部分，有严格匹配，线性和正交三种分解法。
 
-
+![](https://ww2.sinaimg.cn/large/006tNbRwgy1fegsu96wf5j30r612c0uq.jpg)
 

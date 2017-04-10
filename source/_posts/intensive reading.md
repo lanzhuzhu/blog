@@ -1,11 +1,16 @@
 ---
-title: {{  Sequence to Sequence Learning with Neural Networks }}
-date: {{ 2017/03/05 }}
-tags: 自然语言处理
-
+title: 三篇神经网络论文
+date: 2017-04-10
+tags:
+  - QA
+  - 语义匹配
+categories:
+  - 自然语言处理
 ---
 
-## 1. Sequence to Sequence Learning with Neural Networks
+
+
+### Sequence to Sequence Learning with Neural Networks
 
 DNN 不能用来map sequences to sequences.本文提出一个 一般的end-to-end方法可以去学习变长结构的序列。使用多层LSTM去匹配输入到一个固定维度向量，然后另一个deep LSTM从该中间向量解码出目标句子。
 
@@ -13,23 +18,25 @@ DNN 不能用来map sequences to sequences.本文提出一个 一般的end-to-en
 
 ![s2sEq](https://ww1.sinaimg.cn/large/006tNbRwgy1fefi2z84uhj30j9020743.jpg)
 
-LSTM的目标是估计出左边的最大概率。首先计算出固定维度表达V，表示 the input sequence $ (x_1,…,x_T)$ ,即LSTM的最后一个隐藏状态。每个右边子公式的分布是用词典里所有词的softmax表示。每个句子使用EOS结束符号，使得模型能够定义所有可能长度的句子分布。最大化log概率，训练目标：其中S是很多句子对的训练集。![s2sloss](/Users/vera\百度云同步盘\PHD\reread paper\pic\s2sloss.PNG)
+LSTM的目标是估计出左边的最大概率。首先计算出固定维度表达V，表示 the input sequence $ (x_1,…,x_T)$ ,即LSTM的最后一个隐藏状态。每个右边子公式的分布是用词典里所有词的softmax表示。每个句子使用EOS结束符号，使得模型能够定义所有可能长度的句子分布。最大化log概率，训练目标：其中S是很多句子对的训练集。![](https://ww4.sinaimg.cn/large/006tNbRwgy1fegsx3ii4gj306f01s0si.jpg)
 
 **result :** 
 
-![S2Sresult2](/Users/vera/百度云同步盘\PHD\reread paper\pic\S2Sresult2.PNG)
+![](https://ww3.sinaimg.cn/large/006tNbRwgy1fegsyhszprj30lv0ad3ym.jpg)
+
+![](https://ww4.sinaimg.cn/large/006tNbRwgy1fegsx2v36xj30mk0dz74j.jpg)
 
 **conclusion:** 编码最大数量的短期依赖，使学习问题变得简单。反转源语言句子使结果提高很多，也是因为此。
 
 ---
 
-## 2. aNMM: Ranking Short Answer Texts with Attention-Based  Neural Matching Model
+###  aNMM: Ranking Short Answer Texts with Attention-Based  Neural Matching Model
 
 #### 文章来源：
 
 **CIKM’16** , October 24-28, 2016, Indianapolis, IN, USA
 
-==Liu Yan==g 1  Qingyao Ai 1 Jiafeng Guo 2 W. Bruce Croft 1
+Liu Yang 1  Qingyao Ai 1 Jiafeng Guo 2 W. Bruce Croft 1
 
 1. Center for Intelligent Information Retrieval, University of Massachusetts Amherst, MA, USA
 
@@ -76,19 +83,19 @@ RQ2：结合额外特征，本文模型能优于当前QA的最好模型么？
    aNMM-2增加了$r_t$  T为隐藏向量节点数，图中多个黄色点。w为多个权重向量，二维矩阵。两个隐藏层，相比于上个公式，1）增加线性结合的结点输出，2）额外激活函数$\tau$ 。![屏幕快照 2017-03-30 下午5.57.32](https://ww4.sinaimg.cn/large/006tNbRwgy1fefi39bmd3j30p80583yz.jpg)
 
    推导反向传播的公式，损失函数含义？
-
-   ​
 #### 效果和评价
 
    可以看出ANMM1模型效果其实更好，而且加入了attention提高不多。和我biLSTM/cnn差不多。
 
-   它的实验使用的==word embeding 是700维==(300-700)维较好，在验证集上测试，可以试试。
+   它的实验使用的**word embeding 是700维**(300-700)维较好，在验证集上测试，可以试试。   ![屏幕快照 2017-03-30 下午8.49.11](https://ww3.sinaimg.cn/large/006tNbRwgy1fefi3bedcvj30ya110wol.jpg)
 
-   ![屏幕快照 2017-03-30 下午8.49.11](https://ww3.sinaimg.cn/large/006tNbRwgy1fefi3bedcvj30ya110wol.jpg)
+评价：attention 比较简单，就是加了一个可训练的权重v。至于value-shared weighting，说不上效果如何，有多大提高，本文使用number of bins=600，比较细粒度的对权重进行分类学习。问答对的匹配的信号范围[-1，1]，由cosine计算得到。如下图，说不上这个value-shared weighting有什么规律？！
 
-评价：attention 比较简单，就是加了一个可训练的权重v。至于value-shared weighting，说不上效果如何，有多大提高，本文使用number of bins=600，比较细粒度的对权重进行分类学习。问答对的匹配的信号范围[-1，1]，由cosine计算得到。如下图，说不上这个value-shared weighting有什么规律？！![屏幕快照 2017-03-30 下午9.09.59](https://ww1.sinaimg.cn/large/006tNbRwgy1fefi3cvnrzj30ya110wol.jpg)
+![屏幕快照 2017-03-31 下午10.23.42](https://ww4.sinaimg.cn/large/006tNbRwgy1fefi3efja4j31kw0fhdqa.jpg)
 
-## 3. Bilateral Multi-Perspective Matching for Natural Language Sentences
+-------------------
+
+### Bilateral Multi-Perspective Matching for Natural Language Sentences
 
 #### 文章来源
 
@@ -97,9 +104,9 @@ RQ2：结合额外特征，本文模型能优于当前QA的最好模型么？
 
 #### 要解决的问题和已有方法
 
-==自然语言句子匹配==是很多任务的基础，之前的工作要么是单向的，要么只应用了一种粗糙（granular,eg,word-by-word ,sentence-by-sentence）的匹配，本文在三个任务上paraphrase identiﬁcation（PI）, natural language inference(自然语言推理) and answer sentence selection（AS）都取得了state-of-art成绩。
+**自然语言句子匹配**是很多任务的基础，之前的工作要么是单向的，要么只应用了一种粗糙（granular,eg,word-by-word ,sentence-by-sentence）的匹配，本文在三个任务上paraphrase identiﬁcation（PI）, natural language inference(自然语言推理) and answer sentence selection（AS）都取得了state-of-art成绩。
 
-==Introduction:== NLSM(Natural language sentence matching)任务是……，在PI、推论、AS等任务中是基础。
+Introduction: NLSM(Natural language sentence matching)任务是……，在PI、推论、AS等任务中是基础。
 
 NLSM任务中已提出两种DL框架，1.“Siamese” architecture，独立处理两个输入的句子，匹配决定基于两个句子向量。 优点是，共享参数使模型更小、易训练。缺点，编码过程无交互，损失信息。2. “Matching aggregation”框架，两个句子更小粒度匹配，然后集合匹配结果。然而之前的“MG”方法有限制：只探索了word-by-word 匹配，忽略了其他粒度匹配；匹配是单向的，忽略相反方向。
 
@@ -113,9 +120,9 @@ NLSM任务中已提出两种DL框架，1.“Siamese” architecture，独立处�
 
 本文提出了BiMPM(bilateral multi-perspective matching)，从下图可以看出分为5个层，
 
-![屏幕快照 2017-03-31 下午9.19.01](https://ww4.sinaimg.cn/large/006tNbRwgy1fefi3dqov0j31kw0fhdqa.jpg)
+![屏幕快照 2017-04-01 上午9.18.03](https://ww1.sinaimg.cn/large/006tNbRwgy1fefi3f1yzmj311i0vkgr5.jpg)
 
-其中1：第一层说词表达层由两部分组成：word embeddings and character-composed embeddings（后者是把一个词的每个字符放到LST==M里？==pre-trained with GloVe [ Pennington et al., 2014 ] or word2vec [ Mikolov et al., ] .）
+其中1：第一层说词表达层由两部分组成：word embeddings and character-composed embeddings（后者是把一个词的每个字符放到LSTM里？pre-trained with GloVe [ Pennington et al., 2014 ] or word2vec [ Mikolov et al., ] .）
 
 2. Context Representation Layer就是双向LSTM处理。
 
@@ -127,15 +134,11 @@ NLSM任务中已提出两种DL框架，1.“Siamese” architecture，独立处�
 
 ##### 下面对于3进行详细解释：
 
-   ​
-
-   ![屏幕快照 2017-03-31 下午10.23.42](https://ww4.sinaimg.cn/large/006tNbRwgy1fefi3efja4j31kw0fhdqa.jpg)
-
    A).  图中四种不同视角的计算匹配方法，都是用了余弦匹配$f_m$来计算，返回向量$m = f_m(v_1,v_2;W)$ ，计算两个d维向量的匹配值，$W \in R^ {l \times d}$ ,可训练参数。
 
   返回向量$m=[m_1,…，m_k,…，m_l]$ ,其中$m_k = \cos (W_k \cdot v_1,W_K \cdot v_2)$ ，l表示视图的维度，这里的$W_k$是W的第k行。每个P的time-step生成一个向量，即连接了8个生成的视图向量，（正反向2*4种视角）。
 
-   B). 图中四种视角只显示了单向P->Q, P中每个time-step与Q所有time-steps计算出一个m向量，总共实现双向。1）使用 Q的最后一个隐藏向量进行计算。![屏幕快照 2017-04-01 上午9.18.03](https://ww1.sinaimg.cn/large/006tNbRwgy1fefi3f1yzmj311i0vkgr5.jpg)
+   B). 图中四种视角只显示了单向P->Q, P中每个time-step与Q所有time-steps计算出一个m向量，总共实现双向。1）使用 Q的最后一个隐藏向量进行计算。
 
    2）max-pooling matching: 与q的每个time-step计算fm，再求最大值。![屏幕快照 2017-04-01 上午9.21.01](https://ww3.sinaimg.cn/large/006tNbRwgy1fefi3flfngj312s12ewjh.jpg)
 
@@ -157,4 +160,7 @@ NLSM任务中已提出两种DL框架，1.“Siamese” architecture，独立处�
 
 ![屏幕快照 2017-04-01 上午11.34.43](https://ww2.sinaimg.cn/large/006tNbRwgy1fefi3n3nr7j31fe0qmqeb.jpg)
 
-![屏幕快照 2017-04-01 上午11.36.42](https://ww4.sinaimg.cn/large/006tNbRwgy1fefi3of5kzj31fe0qmqeb.jpg)
+![](https://ww4.sinaimg.cn/large/006tNbRwgy1fegt1xtb6pj30pa0l476y.jpg)
+
+
+
